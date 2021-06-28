@@ -30,6 +30,12 @@ dependencies:
   cupertino_icons: ^1.0.2
   hexcolor: ^2.0.4
   smooth_page_indicator: ^0.3.0-nullsafety.0
+  flutter_bloc: ^7.0.1
+  bloc: ^7.0.0
+  dio: ^4.0.0
+  conditional_builder: ^1.0.2
+  flutter_conditional_rendering: ^2.0.0
+  fluttertoast: ^8.0.7
 
 dev_dependencies:
   flutter_test:
