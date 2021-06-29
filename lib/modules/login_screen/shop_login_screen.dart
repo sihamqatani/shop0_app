@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_conditional_rendering/conditional.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:shop01_app/models/shop_model.dart';
+//import 'package:shop01_app/models/shop_model.dart';
 import 'package:shop01_app/modules/login_screen/cubit/cubit.dart';
 import 'package:shop01_app/modules/login_screen/cubit/state.dart';
 import 'package:shop01_app/shared/components.dart';
@@ -18,35 +18,28 @@ class ShopLoginScreen extends StatelessWidget {
       child: BlocConsumer<ShopLoginCubit, ShopLoginState>(
         listener: (context, state) {
           if (state is ShopLoginSuccessState) {
-           
-            late bool s=state.shopUserModel!.status;
-            if (s ) {
-              print( ' THIS is MY Messge::${state.shopUserModel!.message}');
-              //print(state.shopUserModel?.data?.token);
-
-              
+            if (state.shopUserModel.status) {
               Fluttertoast.showToast(
-                
-                  msg:state.shopUserModel!.message,
+                  msg: state.shopUserModel.message,
                   toastLength: Toast.LENGTH_SHORT,
-                  gravity: ToastGravity.CENTER,
+                  gravity: ToastGravity.BOTTOM,
                   timeInSecForIosWeb: 1,
                   backgroundColor: Colors.green,
                   textColor: Colors.white,
                   fontSize: 16.0);
+              print(state.shopUserModel.message);
             } else {
               Fluttertoast.showToast(
-                
-                  msg:'',
+                  msg: state.shopUserModel.message,
                   toastLength: Toast.LENGTH_SHORT,
-                  gravity: ToastGravity.CENTER,
+                  gravity: ToastGravity.BOTTOM,
                   timeInSecForIosWeb: 1,
                   backgroundColor: Colors.red,
                   textColor: Colors.white,
                   fontSize: 16.0);
-              
-              print(state.shopUserModel!.message);
             }
+
+            print('the status is: ${state.shopUserModel.status}');
           }
         },
         builder: (context, state) => Scaffold(

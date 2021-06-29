@@ -1,13 +1,20 @@
-class ShopUserModel {
-  late  bool status;
-    late  String  message;
-   LoginUserData? data;
+  class ShopUserModel {
+    final  bool status;
+      final String  message;
+      LoginUserData? data;
+  ShopUserModel(
+  this.status,
+   this.message,
+   this.data);
  
-  ShopUserModel.fromjson(Map<String,dynamic>json){
-    status=json['status'];
-    message=json['message'];
-    data=(json['data']!=null?LoginUserData.fromjson(json['data']):null);
+   factory ShopUserModel.fromjson( Map<String,dynamic>json){
+     
+    
+   
+  
+  
 
+return ShopUserModel(json['status'], json['message'],(json['data']!=null? LoginUserData.fromjson(json['data']):null));
   }
 
 }
