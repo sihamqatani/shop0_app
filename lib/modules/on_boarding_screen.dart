@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:shop01_app/modules/login_screen/shop_login_screen.dart';
 import 'package:shop01_app/shared/colors.dart';
 import 'package:shop01_app/shared/components.dart';
-import "package:smooth_page_indicator/smooth_page_indicator.dart" ;
-
-
+import 'package:shop01_app/shared/network/local/cash_helper.dart';
+import "package:smooth_page_indicator/smooth_page_indicator.dart";
 
 class OnBoardingModel {
   final String? image;
@@ -24,7 +23,7 @@ class OnBoarding extends StatefulWidget {
 
 class _OnBoardingState extends State<OnBoarding> {
   var boardController = PageController();
-  bool isLast=false;
+  bool isLast = false;
 
   List<OnBoardingModel> boarding = [
     OnBoardingModel(
@@ -46,9 +45,12 @@ class _OnBoardingState extends State<OnBoarding> {
     return Scaffold(
         appBar: AppBar(
           actions: [
-            TextButton(onPressed: (){
-              navigateAndFinish(context, ShopLoginScreen());
-            }, child:Text('SKIP'))
+            TextButton(
+                onPressed: () {
+                  CashHelper.saveData(key: 'onBoarding', value: true);
+                  navigateAndFinish(context, ShopLoginScreen());
+                },
+                child: Text('SKIP'))
           ],
         ),
         body: Padding(
@@ -56,21 +58,20 @@ class _OnBoardingState extends State<OnBoarding> {
           child: Column(
             children: [
               Expanded(
-                child: PageView.builder(onPageChanged:(index){
-                  if(index==boarding.length-1){
-                    setState(() {
-                      isLast=true;
-                      
-                    });
-                    print('last');
-                  }else{
-                    print('not last');
-                     setState(() {
-                      isLast=false;
-                      
-                    });
-                  }
-                } ,
+                child: PageView.builder(
+                  onPageChanged: (index) {
+                    if (index == boarding.length - 1) {
+                      setState(() {
+                        isLast = true;
+                      });
+                      print('last');
+                    } else {
+                      print('not last');
+                      setState(() {
+                        isLast = false;
+                      });
+                    }
+                  },
                   controller: boardController,
                   itemBuilder: (BuildContext context, int index) {
                     return buildOnboardingItems(boarding[index]);
@@ -88,18 +89,21 @@ class _OnBoardingState extends State<OnBoarding> {
                         dotColor: Colors.grey,
                         dotHeight: 10,
                         dotWidth: 10,
-                        spacing: 5,expansionFactor: 4,
+                        spacing: 5,
+                        expansionFactor: 4,
                         activeDotColor: defaultColor),
                   ),
                   Spacer(),
                   FloatingActionButton(
                     onPressed: () {
-                      if(isLast){
+                      if (isLast) {
+                        CashHelper.saveData(key: 'onBoarding', value: true);
                         navigateAndFinish(context, ShopLoginScreen());
-                      }else{boardController.nextPage(
-                          duration: Duration(microseconds: 750),
-                          curve: Curves.fastLinearToSlowEaseIn);}
-                      
+                      } else {
+                        boardController.nextPage(
+                            duration: Duration(microseconds: 750),
+                            curve: Curves.fastLinearToSlowEaseIn);
+                      }
                     },
                     child: Icon(Icons.arrow_forward_ios_outlined),
                   )
