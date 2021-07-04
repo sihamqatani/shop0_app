@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_conditional_rendering/conditional.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:shop01_app/layouts/shop_layout.dart';
 //import 'package:shop01_app/models/shop_model.dart';
 import 'package:shop01_app/modules/login_screen/cubit/cubit.dart';
 import 'package:shop01_app/modules/login_screen/cubit/state.dart';
-import 'package:shop01_app/shared/components.dart';
+import 'package:shop01_app/shared/network/components/components.dart';
+import 'package:shop01_app/shared/network/local/cash_helper.dart';
 
 class ShopLoginScreen extends StatelessWidget {
   var formKey = GlobalKey<FormState>();
@@ -19,24 +20,17 @@ class ShopLoginScreen extends StatelessWidget {
         listener: (context, state) {
           if (state is ShopLoginSuccessState) {
             if (state.shopUserModel.status) {
-              Fluttertoast.showToast(
-                  msg: state.shopUserModel.message,
-                  toastLength: Toast.LENGTH_SHORT,
-                  gravity: ToastGravity.BOTTOM,
-                  timeInSecForIosWeb: 1,
-                  backgroundColor: Colors.green,
-                  textColor: Colors.white,
-                  fontSize: 16.0);
+              CashHelper.saveData(
+                      key: 'token', value: state.shopUserModel.data?.token)
+                  .then((value) => navigateAndFinish(context, ShopLayout()));
+              showToast(
+                  message: state.shopUserModel.message,
+                  state: ToastColorstate.SUCCESS);
               print(state.shopUserModel.message);
             } else {
-              Fluttertoast.showToast(
-                  msg: state.shopUserModel.message,
-                  toastLength: Toast.LENGTH_SHORT,
-                  gravity: ToastGravity.BOTTOM,
-                  timeInSecForIosWeb: 1,
-                  backgroundColor: Colors.red,
-                  textColor: Colors.white,
-                  fontSize: 16.0);
+              showToast(
+                  message: state.shopUserModel.message,
+                  state: ToastColorstate.ERROR);
             }
 
             print('the status is: ${state.shopUserModel.status}');

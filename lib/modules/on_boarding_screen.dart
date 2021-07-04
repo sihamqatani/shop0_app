@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shop01_app/modules/login_screen/shop_login_screen.dart';
 import 'package:shop01_app/shared/colors.dart';
-import 'package:shop01_app/shared/components.dart';
+import 'package:shop01_app/shared/network/components/components.dart';
 import 'package:shop01_app/shared/network/local/cash_helper.dart';
 import "package:smooth_page_indicator/smooth_page_indicator.dart";
 
@@ -47,8 +47,7 @@ class _OnBoardingState extends State<OnBoarding> {
           actions: [
             TextButton(
                 onPressed: () {
-                  CashHelper.saveData(key: 'onBoarding', value: true);
-                  navigateAndFinish(context, ShopLoginScreen());
+                  submitData();
                 },
                 child: Text('SKIP'))
           ],
@@ -97,8 +96,7 @@ class _OnBoardingState extends State<OnBoarding> {
                   FloatingActionButton(
                     onPressed: () {
                       if (isLast) {
-                        CashHelper.saveData(key: 'onBoarding', value: true);
-                        navigateAndFinish(context, ShopLoginScreen());
+                        submitData();
                       } else {
                         boardController.nextPage(
                             duration: Duration(microseconds: 750),
@@ -112,6 +110,15 @@ class _OnBoardingState extends State<OnBoarding> {
             ],
           ),
         ));
+  }
+
+  void submitData() {
+    CashHelper.saveData(key: 'onBoarding', value: true).then((value) {
+      if (value) {
+        print('hello shop login$value');
+        navigateAndFinish(context, ShopLoginScreen());
+      }
+    });
   }
 
   Widget buildOnboardingItems(OnBoardingModel model) {
