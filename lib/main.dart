@@ -17,6 +17,7 @@ void main() async {
   bool? onBoard = CashHelper.getData(key: 'onBoarding');
   // print('the errror in onboard $onBoard');
   String? token = CashHelper.getData(key: 'token');
+  print('token::${token.toString()}');
   Widget widget;
 
   if (onBoard != null) {
@@ -44,7 +45,10 @@ class ShopApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ShopCubit()..getDataHome(),
+      create: (context) => ShopCubit()
+        ..getDataHome()
+        ..getDatCateogries(),
+      //..getDataC,
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(

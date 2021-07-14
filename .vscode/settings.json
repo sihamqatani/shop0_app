@@ -1,4 +1,7 @@
 {
     "git.allowForcePush": true,
-    "git.allowNoVerifyCommit": true
+    "git.allowNoVerifyCommit": true,
+    "files.autoSave": "onFocusChange",
+    "workbench.preferredDarkColorTheme": "One Dark Pro",
+    "workbench.iconTheme": "material-icon-theme"
 }
