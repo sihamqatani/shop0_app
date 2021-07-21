@@ -8,29 +8,35 @@ import 'package:shop01_app/models/home_model.dart';
 import 'package:shop01_app/shared/colors.dart';
 import 'package:shop01_app/shared/cubit/shop_cubit.dart';
 import 'package:shop01_app/shared/cubit/shop_state.dart';
+import 'package:shop01_app/shared/network/components/components.dart';
 
 class Products extends StatelessWidget {
   const Products({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<ShopCubit, ShopStates>(
-        listener: (context, state) {},
-        builder: (context, state) {
-          return Conditional.single(
-            context: context,
-            conditionBuilder: (context) =>
-                ShopCubit.get(context).homeModel != null &&
-                ShopCubit.get(context).catogriesModel != null,
-            widgetBuilder: (context) => builderProducts(
-                ShopCubit.get(context).homeModel,
-                ShopCubit.get(context).catogriesModel,
-                context),
-            fallbackBuilder: (context) => Center(
-              child: CircularProgressIndicator(),
-            ),
-          );
-        });
+    return BlocConsumer<ShopCubit, ShopStates>(listener: (context, state) {
+      if (state is ShopSuccessChangeFavoritesdataState) {
+        if (!state.model!.status) {
+          showToast(
+              message: state.model!.message, state: ToastColorstate.ERROR);
+        }
+      }
+    }, builder: (context, state) {
+      return Conditional.single(
+        context: context,
+        conditionBuilder: (context) =>
+            ShopCubit.get(context).homeModel != null &&
+            ShopCubit.get(context).catogriesModel != null,
+        widgetBuilder: (context) => builderProducts(
+            ShopCubit.get(context).homeModel,
+            ShopCubit.get(context).catogriesModel,
+            context),
+        fallbackBuilder: (context) => Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+    });
   }
 
   Widget builderProducts(
@@ -196,6 +202,7 @@ class Products extends StatelessWidget {
                     Spacer(),
                     IconButton(
                       onPressed: () {
+                        ShopCubit.get(context).changeFavorites(model.id);
                         print(model.id);
                       },
                       icon: CircleAvatar(

@@ -47,7 +47,9 @@ class ShopApp extends StatelessWidget {
     return BlocProvider(
       create: (context) => ShopCubit()
         ..getDataHome()
-        ..getDatCateogries(),
+        ..getDatCateogries()
+        ..getDatFavorites()
+        ..getUserModel(),
       //..getDataC,
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
