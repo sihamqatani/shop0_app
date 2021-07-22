@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:shop01_app/modules/login_screen/shop_login_screen.dart';
+import 'package:shop01_app/shared/network/local/cash_helper.dart';
 
 void navigateTo(context, widget) {
   Navigator.push(context, MaterialPageRoute(builder: (context) {
@@ -108,3 +110,15 @@ Widget defaultFormField(
         border: OutlineInputBorder(),
       ),
     );
+void signOut(context) {
+  CashHelper.removeData(
+    key: 'token',
+  ).then((value) {
+    if (value) {
+      navigateAndFinish(
+        context,
+        ShopLoginScreen(),
+      );
+    }
+  });
+}

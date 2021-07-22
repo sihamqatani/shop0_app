@@ -16,6 +16,11 @@ class Setting extends StatelessWidget {
     return BlocConsumer<ShopCubit, ShopStates>(
       listener: (context, state) {},
       builder: (context, state) {
+        var model = ShopCubit.get(context).shopUserModel;
+        nameController.text = model!.data!.name!;
+        emailController.text = model.data!.email!;
+        phonrController.text = model.data!.phone!;
+
         return Conditional.single(
             conditionBuilder: (context) =>
                 ShopCubit.get(context).shopUserModel != null,
@@ -59,6 +64,14 @@ class Setting extends StatelessWidget {
                           },
                           label: 'phone',
                           prefix: Icons.phone),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      defaultButton(
+                          function: () {
+                            signOut(context);
+                          },
+                          text: 'SIGN OUT')
                     ],
                   ),
                 ),

@@ -1,6 +1,6 @@
 class ShopUserModel {
   final bool status;
-  final String message;
+  String? message;
   LoginUserData? data;
   ShopUserModel(this.status, this.message, this.data);
 
@@ -19,15 +19,7 @@ class LoginUserData {
   int? points;
   int? credit;
   String? token;
-  LoginUserData({
-    this.id,
-    this.name,
-    this.phone,
-    this.image,
-    this.points,
-    this.credit,
-    this.token,
-  });
+
   LoginUserData.fromjson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];

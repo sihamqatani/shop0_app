@@ -24,12 +24,12 @@ class ShopLoginScreen extends StatelessWidget {
                       key: 'token', value: state.shopUserModel.data?.token)
                   .then((value) => navigateAndFinish(context, ShopLayout()));
               showToast(
-                  message: state.shopUserModel.message,
+                  message: state.shopUserModel.message!,
                   state: ToastColorstate.SUCCESS);
               print(state.shopUserModel.message);
             } else {
               showToast(
-                  message: state.shopUserModel.message,
+                  message: state.shopUserModel.message!,
                   state: ToastColorstate.ERROR);
             }
 
