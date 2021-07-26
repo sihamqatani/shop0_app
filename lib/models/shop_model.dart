@@ -12,9 +12,9 @@ class ShopUserModel {
 
 class LoginUserData {
   int? id;
-  String? name;
+  late String name;
   String? email;
-  String? phone;
+  dynamic phone;
   String? image;
   int? points;
   int? credit;
@@ -23,6 +23,7 @@ class LoginUserData {
   LoginUserData.fromjson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
+    email = json['email'];
     phone = json['phone'];
     image = json['image'];
     points = json['points'];

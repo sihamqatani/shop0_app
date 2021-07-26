@@ -104,14 +104,41 @@ class ShopCubit extends Cubit<ShopStates> {
 
   ShopUserModel? shopUserModel;
   void getUserModel() {
-    emit(ShopLoadingFavoritesState());
+    emit(ShopUserModelData());
 
     DioHelper.getData(url: PROFILE, token: token).then((value) {
       shopUserModel = ShopUserModel.fromjson(value.data);
       print(' USER NAME::>>> : ${shopUserModel?.data?.name}');
+      print(' USER emai;;;;::>>> : ${shopUserModel?.data?.phone}');
       // print(value.data);
 
-      emit(ShopSuccessUserModeldataState());
+      emit(ShopSuccessUserModeldataState(model: shopUserModel));
+    }).catchError((error) {
+      print('theeee errror in UserModel is :::${error.toString()}');
+      emit(ShopErrorUserModeldataState());
+    });
+  }
+
+  ///////////////////////////////////////////////////////////////////
+  void updateUserModel({
+    required name,
+    required email,
+    required phone,
+  }) {
+    emit(ShopLoadingUpdateUserModelData());
+
+    DioHelper.putData(
+      url: UPDATE_PROFILE,
+      token: token,
+      data: {
+        'name': name,
+        'email': email,
+        'phonr': phone,
+      },
+    ).then((value) {
+      shopUserModel = ShopUserModel.fromjson(value?.data);
+
+      emit(ShopSuccessUserModeldataState(model: shopUserModel));
     }).catchError((error) {
       print('theeee errror in UserModel is :::${error.toString()}');
       emit(ShopErrorUserModeldataState());

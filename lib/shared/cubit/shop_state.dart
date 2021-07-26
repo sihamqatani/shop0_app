@@ -1,4 +1,5 @@
 import 'package:shop01_app/models/favorite_model.dart';
+import 'package:shop01_app/models/shop_model.dart';
 
 abstract class ShopStates {}
 
@@ -24,7 +25,23 @@ class ShopUserModelData extends ShopStates {}
 
 class ShopErrorUserModeldataState extends ShopStates {}
 
-class ShopSuccessUserModeldataState extends ShopStates {}
+class ShopSuccessUserModeldataState extends ShopStates {
+  ShopUserModel? model;
+  ShopSuccessUserModeldataState({
+    required this.model,
+  });
+}
+
+class ShopLoadingUpdateUserModelData extends ShopStates {}
+
+class ShopErrorUpdateUserModeldataState extends ShopStates {}
+
+class ShopSuccessUpdateUserModeldataState extends ShopStates {
+  ShopUserModel? model;
+  ShopSuccessUpdateUserModeldataState({
+    required this.model,
+  });
+}
 
 class ShopErrorFavoritesdataState extends ShopStates {}
 

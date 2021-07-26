@@ -5,6 +5,7 @@ import 'package:shop01_app/layouts/shop_layout.dart';
 //import 'package:shop01_app/models/shop_model.dart';
 import 'package:shop01_app/modules/login_screen/cubit/cubit.dart';
 import 'package:shop01_app/modules/login_screen/cubit/state.dart';
+import 'package:shop01_app/modules/register/register.dart';
 import 'package:shop01_app/shared/network/components/components.dart';
 import 'package:shop01_app/shared/network/local/cash_helper.dart';
 
@@ -133,7 +134,14 @@ class ShopLoginScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text('you Don \'t have account?'),
-                          TextButton(onPressed: () {}, child: Text('REGISTER')),
+                          TextButton(
+                              onPressed: () {
+                                navigateTo(
+                                  context,
+                                  Register(),
+                                );
+                              },
+                              child: Text('REGISTER')),
                         ],
                       ),
                     ],
